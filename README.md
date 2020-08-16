@@ -10,4 +10,5 @@ O projeto consiste na criação de uma rede social semelhante ao LinkedIn, fazen
 
 ## Execução do projeto
 >`$ cd connectedin`
+
 >`$ python manage.py runserver`
