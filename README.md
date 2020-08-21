@@ -9,6 +9,6 @@ O projeto consiste na exibição da página de boas vindas ao acessar a o caminh
 >`$ pip install -r requirements.txt`
 
 ## Execução do projeto
->`$ cd connectedin`
+>`$ cd meuprojeto`
 
 >`$ python manage.py runserver`
