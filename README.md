@@ -1,8 +1,8 @@
-# ConnectedIn
+# MeuProjeto
 
 Projeto em desenvolvimento durante a disciplina de *Programação para Internet - I*
 
-O projeto consiste na criação de uma rede social semelhante ao LinkedIn, fazendo uso do framework Django.
+O projeto consiste na exibição da página de boas vindas ao acessar a o caminho */bemvindo*.
 
 ## Instalação de dependências
 
