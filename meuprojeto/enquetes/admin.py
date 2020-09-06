@@ -1,7 +1,10 @@
 from django.contrib import admin
 from .models import Enquete
-# Register your models here.
+
+
+@admin.register(Enquete)
 class EnqueteAdmin(admin.ModelAdmin):
     readonly_fields = ('data_publicacao', )
-
-admin.site.register(Enquete, EnqueteAdmin)
+    list_display = ['texto', 'data_publicacao']
+    list_filter = ['data_publicacao']
+    search_fields = ['texto']
