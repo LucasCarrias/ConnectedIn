@@ -2,11 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class TimelineManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(posts)
-
-
 class UserAccount(User):
     birth_date = models.DateField(blank=True, null=True)
 
@@ -17,9 +12,6 @@ class Profile(models.Model):
     name = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    class Meta():
-        db_table = 'profile'
 
     def __str__(self):
         return self.name
