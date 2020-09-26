@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    {{ profile.name }} |
+{% endblock title %}
+
+{% block content %}
+
+    
+    <h1>{{ profile.name }}</h1>
+    
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% else %}
+        <form action="{% url 'core:invite' profile.slug %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Connect">
+        </form>
+    {% endif %}
+    
+{% endblock content %}

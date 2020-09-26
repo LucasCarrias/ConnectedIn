@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+from django.shortcuts import reverse
 
 
 class UserAccount(User):
@@ -7,14 +9,25 @@ class UserAccount(User):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='profiles')
+    user = models.ForeignKey(UserAccount,
+                             on_delete=models.CASCADE,
+                             related_name='profiles')
     contacts = models.ManyToManyField('self', blank=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    slug = models.CharField(max_length=255, blank=False)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("core:profile", kwargs={"profile_slug": self.slug})
+    
 
 
 class Invitation(models.Model):
@@ -33,7 +46,7 @@ class Invitation(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
-                              default='accepted')
+                              default='waiting')
 
     class Meta:
         ordering = ('-created',)

@@ -4,7 +4,7 @@
     <h1>Home Page</h1>
     <ul>
         {% for profile in profiles %}
-            <li>{{ profile.name }}</li>
+            <li><a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a></li>
         {% empty %}
             <h2>No profiles yet</h2>
         {% endfor %}
