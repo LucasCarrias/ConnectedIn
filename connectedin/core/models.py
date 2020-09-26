@@ -31,10 +31,12 @@ class Invitation(models.Model):
                                 related_name='invite_to',
                                 on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(choices=STATUS_CHOICES, default='accepted')
+    status = models.CharField(max_length=10,
+                              choices=STATUS_CHOICES,
+                              default='accepted')
 
     class Meta:
-        ordering = ('-created')
+        ordering = ('-created',)
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts")

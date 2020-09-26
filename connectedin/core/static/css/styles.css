@@ -1,0 +1,29 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.navbar {
+    background-color: lightgreen;
+    margin: 0 0;
+    padding: 0 15%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.app-name {
+    font-weight: 700;
+    color: navy;
+    font-size: 1.6rem;
+    text-decoration: none;
+}
+
+.app-name:hover {
+    opacity: 0.8;
+}
+
+#content {
+    padding: 0 15%;
+    margin: 2rem 0;
+}
