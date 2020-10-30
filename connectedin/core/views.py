@@ -12,6 +12,8 @@ def home(request):
 
 def profile(request, profile_slug):
     profile = get_object_or_404(Profile, slug=profile_slug)
+    context = {'profile': profile}
+    current_user = get_object_or_404(Profile, id=1)
     return render(request,
                   'core/profile.html',
                   {'profile': profile})

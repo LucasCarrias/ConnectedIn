@@ -50,6 +50,9 @@ class Invitation(models.Model):
 
     class Meta:
         ordering = ('-created',)
+    
+    def __str__(self):
+        return f"Invitation of '{self.user_from.name}'' to '{self.user_to.name}''"
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts")
