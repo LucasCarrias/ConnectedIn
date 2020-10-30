@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "/home/lucascarrias/.local/share/virtualenvs/ConnectedIn-aGPH_7sc/bin/python"
+    "python.pythonPath": "/home/lucascarrias/.local/share/virtualenvs/ConnectedIn-aGPH_7sc/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }

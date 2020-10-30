@@ -1,11 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.shortcuts import reverse
-
-
-class UserAccount(User):
-    birth_date = models.DateField(blank=True, null=True)
+from user_account.models import UserAccount
 
 
 class Profile(models.Model):
@@ -24,10 +20,10 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-    
+
     def get_absolute_url(self):
         return reverse("core:profile", kwargs={"profile_slug": self.slug})
-    
+
 
 
 class Invitation(models.Model):
@@ -50,7 +46,7 @@ class Invitation(models.Model):
 
     class Meta:
         ordering = ('-created',)
-    
+
     def __str__(self):
         return f"Invitation of '{self.user_from.name}'' to '{self.user_to.name}''"
 
