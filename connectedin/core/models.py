@@ -47,7 +47,10 @@ class Profile(models.Model):
     @property
     def timeline(self):
         my_posts = Post.objects.filter(profile=self)
-        return my_posts
+        
+        for contact in self.connections:
+            timeline_posts = my_posts | Post.objects.filter(profile=contact)
+        return timeline_posts.order_by('-created')
 
 
 class Invitation(models.Model):
