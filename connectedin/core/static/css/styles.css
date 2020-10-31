@@ -6,11 +6,6 @@ body {
 
 .navbar {
     background-color:#283e4a;
-    margin: 0 0;
-    padding: 0 15%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
 }
 
 .navbar i {

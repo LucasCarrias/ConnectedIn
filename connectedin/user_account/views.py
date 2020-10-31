@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import RegisterUserForm, LoginUserForm
 from .models import UserAccount
 from core.models import Profile
+from django.http import HttpResponseNotAllowed, HttpResponse
 
 
 class RegisterView(View):
@@ -53,3 +54,13 @@ class LoginView(View):
                 return redirect(request.GET.get('next', '/'))
             form.append_error('Username and Password Invalid!')
         return render(request, self.template_name, {'form':form})
+
+
+class LogoutView(View):
+    def get(self, request):
+        
+        return HttpResponseNotAllowed(permitted_methods=['POST'])
+
+    def post(self, request):
+        logout(request)
+        return redirect('/')

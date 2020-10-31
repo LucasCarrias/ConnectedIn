@@ -24,13 +24,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 </head>
 <body>
+    {% if user.is_authenticated %}
     <div class="navbar">
         <span >
             <a href="{% url 'core:home' %}" class="app-name">
                 <i class="fab fa-linkedin"></i>ConnectedIn
             </a>
+            <form action="{% url 'user_account:logout' %}" method='POST' class='float-right'>
+                {% csrf_token %}
+                <input type="submit" value='Logout' class="btn btn-primary">
+            </form>
         </span>
     </div>
+    {% endif %}
     <div id="content">
         {% block content %}
         {% endblock content %}
