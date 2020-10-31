@@ -49,8 +49,9 @@ class LoginView(View):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
-            login(request, user)
+            
             if user:
+                login(request, user)
                 return redirect(request.GET.get('next', '/'))
             form.append_error('Username and Password Invalid!')
         return render(request, self.template_name, {'form':form})

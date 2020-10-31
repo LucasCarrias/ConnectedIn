@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.shortcuts import reverse
+from django.db.models import Q
 from user_account.models import UserAccount
 
 
@@ -24,6 +25,20 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("core:profile", kwargs={"profile_slug": self.slug})
 
+    @property
+    def invitations(self):
+        return Invitation.objects.filter(Q(user_to=self) | Q(user_from=self))
+
+    @property
+    def connections(self):
+        accepted = self.invitations.filter(Q(status="accepted"))
+        contacts = []
+        for contact in accepted:
+            if(contact.user_to != self):
+                contacts.append(contact.user_to)
+            if(contact.user_from != self):
+                contacts.append(contact.user_from)
+        return set(contacts)
 
 
 class Invitation(models.Model):
@@ -49,6 +64,9 @@ class Invitation(models.Model):
 
     def __str__(self):
         return f"Invitation of '{self.user_from.name}'' to '{self.user_to.name}''"
+    
+    def get_absolute_url(self):
+        return reverse("core:accept_invite", kwargs={"id": self.id})
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts")
