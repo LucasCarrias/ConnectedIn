@@ -1,6 +1,7 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: red;
 }
 
 .navbar {
@@ -32,4 +33,9 @@ body {
 #content {
     padding: 0 15%;
     margin: 2rem 0;
+}
+
+form.jumbotron {
+    width: 480px !important;
+    margin: auto;
 }

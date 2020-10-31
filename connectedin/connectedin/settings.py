@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local Apps
     'core',
-    'user_account'
+    'user_account',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -113,5 +114,4 @@ STATIC_URL = '/static/'
 
 
 # Auth Settings
-
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/user/login'

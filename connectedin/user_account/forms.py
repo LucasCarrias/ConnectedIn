@@ -6,13 +6,18 @@ class LoginUserForm(forms.Form):
     username = forms.CharField(required=True)
     password = forms.CharField(required=True, widget=forms.PasswordInput)
 
+    def append_error(self, message):
+        errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
+                                        forms.utils.ErrorList())
+        errors.append(message)
+
 
 class RegisterUserForm(forms.Form):
     email = forms.EmailField(required=True)
     username = forms.CharField(required=True)
     password1 = forms.CharField(widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(widget=forms.PasswordInput, required=True)
-    birth_day = forms.DateField(required=True, widget=forms.DateInput)
+    birth_date = forms.DateField(required=True, widget=forms.DateInput)
 
     def is_valid(self):
         valid = super(RegisterUserForm, self).is_valid()
