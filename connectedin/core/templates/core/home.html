@@ -2,43 +2,49 @@
 
 {% block content %}
     <h1>Home Page</h1>
-    <ul>
-        {% for profile in profiles %}
-            <li><a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a></li>
-        {% empty %}
-            <h2>No Connections yet</h2>
-        {% endfor %}
-    </ul>
-
-    <!-- <ul>
-        {% for profile in profiles %}
-            <li><a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a></li>
-        {% empty %}
-            <h2>No profiles yet</h2>
-        {% endfor %}
-    </ul> -->
-
-    <ul>
-        <h2>Invitations</h2>
-        {% for invite in invitations %}
-            <li><form action="{{ invite.get_absolute_url }}" method="post">
-                {% csrf_token %}
-                {{invite.user_from}} wants to connect with you.
-                <button type="submit" class="btn btn-primary">Accept</button>
-            </form>
-            </li>
-        {% empty %}
-            <h2>No pendding invitations</h2>
-        {% endfor %}
-    </ul>
-
-    <ul>
-        <h2>Contacts</h2>
-        {% for contact in contacts %}
-            <li><a href="{{ contact.get_absolute_url }}">{{ contact }}</a></li>
-        {% empty %}
-            <h2>No Connections yet</h2>
-        {% endfor %}
-    </ul>
+    <div class="jumbotron">
+        <ul>
+            <h2>Contacts</h2>
+            {% for contact in contacts %}
+                <li><a href="{{ contact.get_absolute_url }}">{{ contact }}</a></li>
+            {% empty %}
+                <h2>No Connections yet</h2>
+            {% endfor %}
+        </ul>
+    </div>
     
+    <div class="jumbotron">
+        <ul>
+            <h2>Invitations</h2>
+            {% for invite in invitations %}
+                <li><form action="{{ invite.get_absolute_url }}" method="post">
+                    {% csrf_token %}
+                    {{invite.user_from}} wants to connect with you.
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                </form>
+                </li>
+            {% empty %}
+                <h2>No pendding invitations</h2>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <h3>Also on ConnectedIn:</h3>
+        <ul>
+        {% for profile in profiles %}
+            <li><a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a></li>
+        {% empty %}
+            <h2>No Connections yet</h2>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <h2>Timeline</h2>
+        {% for post in timeline %}
+            <li><a href="{{ post.profile.get_absolute_url }}">{{ post.profile }}</a> says:</li>
+            {{post.body}}
+            <span class="float-right">{{ post.created }}</span>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock content %}

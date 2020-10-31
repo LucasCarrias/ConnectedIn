@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2>Create Post</h2>
+        <form action={% url 'core:create_post' %} method="post">
+            {% csrf_token %}
+            <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+    </div>
+{% endblock content %}

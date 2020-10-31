@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Profile, Invitation
+from .models import Profile, Invitation, Post
+from .forms import PostForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
@@ -13,7 +14,8 @@ def home(request):
                   "core/home.html",
                   {'profiles': profiles,
                    'invitations': current_profile.invitations.filter(status="waiting"),
-                   'contacts': current_profile.connections},
+                   'contacts': current_profile.connections,
+                   'timeline': current_profile.timeline}
                    )
 
 @login_required
@@ -39,8 +41,24 @@ def invite(request, profile_slug):
                   {'profile': profile,
                    'message': 'Invitation Sent'})
 
+@login_required
+@require_POST
 def accept_invite(request, id):
     invitation = Invitation.objects.get(id=id)
     invitation.status = "accepted"
     invitation.save()
     return redirect("/")
+
+
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        current_profile = Profile.objects.get(user=request.user)
+        form = PostForm(request.POST)
+        if form.is_valid():
+            Post(body=form.cleaned_data['body'], profile=current_profile).save()
+            return redirect('/')
+        else:
+            return redirect('post/create')
+    else:
+        return render(request, 'core/posts/create.html', {'form': PostForm()})

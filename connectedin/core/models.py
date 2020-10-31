@@ -40,6 +40,15 @@ class Profile(models.Model):
                 contacts.append(contact.user_from)
         return set(contacts)
 
+    @property
+    def posts(self):
+        return Post.objects.filter(profile=self)
+
+    @property
+    def timeline(self):
+        my_posts = Post.objects.filter(profile=self)
+        return my_posts
+
 
 class Invitation(models.Model):
     STATUS_CHOICES = [
